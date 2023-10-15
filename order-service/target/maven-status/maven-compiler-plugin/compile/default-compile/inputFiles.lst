@@ -4,7 +4,9 @@ D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\mic
 D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\microservices\ecommerce\orderservice\dtos\OrderLineItemsDto.java
 D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\microservices\ecommerce\orderservice\dtos\OrderRequest.java
 D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\microservices\ecommerce\orderservice\repositories\OrderRepository.java
+D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\microservices\ecommerce\orderservice\dtos\InventoryResponse.java
 D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\microservices\ecommerce\orderservice\services\OrderService.java
+D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\microservices\ecommerce\orderservice\config\WebClientConfig.java
 D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\microservices\ecommerce\orderservice\repositories\OrderLineRepository.java
 D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\microservices\ecommerce\orderservice\modals\OrderLineItems.java
 D:\Spring\SpringBoot\Microservices\ecommerce\order-service\src\main\java\com\microservices\ecommerce\orderservice\dtos\GeneralResponse.java

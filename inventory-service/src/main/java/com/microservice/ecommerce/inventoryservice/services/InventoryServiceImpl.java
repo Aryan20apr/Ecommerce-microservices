@@ -3,10 +3,11 @@ package com.microservice.ecommerce.inventoryservice.services;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.microservice.ecommerce.inventoryservice.dtos.InventoryResponse;
 import com.microservice.ecommerce.inventoryservice.repositories.InventoryRepository;
 
 import lombok.RequiredArgsConstructor;
-
+import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class InventoryServiceImpl implements InventoryService {
@@ -14,9 +15,17 @@ public class InventoryServiceImpl implements InventoryService {
     private final InventoryRepository inventoryRepository;
 
     @Transactional(readOnly = true)
-    public boolean isInStock(String skuCode) {
+    public List<InventoryResponse> isInStock(List<String> skuCode) {
 
-        return inventoryRepository.findBySkuCode(skuCode).isPresent();
+        return inventoryRepository
+        .findBySkuCodeIn(skuCode)
+        .stream()
+        .map(inventory->InventoryResponse
+        .builder()
+        .skuCode(inventory.getSkuCode())
+        .isInStock(inventory.getQuantity()>0)
+        .build())
+        .toList();
 
     }
 }

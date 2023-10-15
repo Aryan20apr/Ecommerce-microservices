@@ -4,4 +4,5 @@ D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com
 D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\repositories\InventoryRepository.java
 D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\controllers\InventoryController.java
 D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\services\InventoryServiceImpl.java
+D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\dtos\InventoryResponse.java
 D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\modals\Inventory.java

@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.microservice.ecommerce.inventoryservice.dtos.GeneralResponse;
+
+import com.microservice.ecommerce.inventoryservice.dtos.InventoryResponse;
 import com.microservice.ecommerce.inventoryservice.services.InventoryService;
 
 import lombok.RequiredArgsConstructor;
-
+import java.util.List;
 @RestController
 @RequestMapping("/api/inventory")
 @RequiredArgsConstructor
@@ -20,15 +21,10 @@ public class InventoryController {
     
     private final InventoryService inventoryService;
 
-    @GetMapping("/{skuCode}")
+    @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public GeneralResponse isInStock(@PathVariable("sku-code") String skuCode){
-        boolean result=inventoryService.isInStock(skuCode);
-            if(result==true)
-            {
-                return GeneralResponse.builder().availibility(result).message("Product with id "+skuCode+" is available.").build();
-            }
-            else
-                return GeneralResponse.builder().availibility(result).message("Product with id "+skuCode+" is not available.").build();
+    public List<InventoryResponse> isInStock(@RequestParam List<String> skuCode){
+        List<InventoryResponse> result=inventoryService.isInStock(skuCode);
+            return result;
     }
 }
