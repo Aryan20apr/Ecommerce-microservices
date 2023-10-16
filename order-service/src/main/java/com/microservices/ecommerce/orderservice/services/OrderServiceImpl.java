@@ -25,8 +25,12 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class OrderServiceImpl implements OrderService{
 
+    /**
+     *
+     */
+    private static final String INVENTORY_SERVICE = "http://inventory-service/api/inventory";
     private final OrderRepository orderRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientbuilder;
     @Override
     public void placeOrder(OrderRequest orderRequest) {
         
@@ -39,15 +43,15 @@ public class OrderServiceImpl implements OrderService{
       order.setOrderLineItems(orderLineItems);
      List<String> skuCodes= order.getOrderLineItems().stream().map(OrderLineItems::getSkuCode).toList();
       // Call Inventory Service and place order if item is in stock
-     InventoryResponse[] inventoryResponses= webClient.get()
-     .uri("http://localhost:8082/api/inventory",
+     InventoryResponse[] inventoryResponses= webClientbuilder.build().get()
+     .uri(INVENTORY_SERVICE,
      uriBuilder->uriBuilder.queryParam("skuCode", skuCodes).build())
      .retrieve()
      .bodyToMono(InventoryResponse[].class)
      .block(); // bolck() is used to make sunchronous request
 
     boolean allProductsResult= Arrays.stream(inventoryResponses).allMatch(InventoryResponse::isInStock);
-            orderRepository.save(order);
+           
     
             if(allProductsResult)
             {
