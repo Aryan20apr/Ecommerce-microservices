@@ -1,9 +1,6 @@
 package com.microservices.ecommerce.orderservice.dtos;
 
 import java.util.List;
-
-import com.microservices.ecommerce.orderservice.modals.OrderLineItems;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

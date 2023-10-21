@@ -1,4 +1,5 @@
 D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\InventoryServiceApplication.java
+D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\config\EurekaConfig.java
 D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\services\InventoryService.java
 D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\dtos\GeneralResponse.java
 D:\Spring\SpringBoot\Microservices\ecommerce\inventory-service\src\main\java\com\microservice\ecommerce\inventoryservice\repositories\InventoryRepository.java
