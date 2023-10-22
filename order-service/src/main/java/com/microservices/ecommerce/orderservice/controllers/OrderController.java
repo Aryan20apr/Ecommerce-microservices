@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.microservices.ecommerce.orderservice.dtos.GeneralResponse;
 import com.microservices.ecommerce.orderservice.dtos.OrderRequest;
 import com.microservices.ecommerce.orderservice.services.OrderService;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 import com.microservices.ecommerce.orderservice.dtos.OrderResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +29,7 @@ public class OrderController {
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @CircuitBreaker(name = "inventory",fallbackMethod = "fallback")
     public GeneralResponse placeOrder(@RequestBody OrderRequest orderRequest) {
         orderservice.placeOrder(orderRequest);
         return GeneralResponse.builder().message("Order placed successfully").build();
@@ -36,4 +40,12 @@ public class OrderController {
     public List<OrderResponse> getAllOrders() {
         return orderservice.getAllOrders();
 }
+
+public GeneralResponse fallback(OrderRequest orderRequest,RuntimeException runtimeException)
+{
+   return GeneralResponse.builder().message(
+        "There was a problem with the inventory service: "+runtimeException.getMessage()).build();
+    
+}
+
 }
