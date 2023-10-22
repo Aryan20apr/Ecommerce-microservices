@@ -17,6 +17,7 @@ import com.microservices.ecommerce.orderservice.dtos.OrderRequest;
 import com.microservices.ecommerce.orderservice.services.OrderService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 
 import com.microservices.ecommerce.orderservice.dtos.OrderResponse;
@@ -33,7 +34,10 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     @CircuitBreaker(name = "inventory",fallbackMethod = "fallback")
     @TimeLimiter(name = "inventory")
+    @Retry(name="inventory")
     public CompletableFuture<GeneralResponse> placeOrder(@RequestBody OrderRequest orderRequest) {
+
+        // Execute different in different thread and whenever the time limit is reached, exception is thrown 
       return  CompletableFuture.supplyAsync(()->orderservice.placeOrder(orderRequest));
 
     }
