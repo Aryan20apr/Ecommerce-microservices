@@ -2,6 +2,7 @@ package com.microservices.ecommerce.orderservice.controllers;
 
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import com.microservices.ecommerce.orderservice.dtos.OrderRequest;
 import com.microservices.ecommerce.orderservice.services.OrderService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 
 import com.microservices.ecommerce.orderservice.dtos.OrderResponse;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +32,10 @@ public class OrderController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @CircuitBreaker(name = "inventory",fallbackMethod = "fallback")
-    public GeneralResponse placeOrder(@RequestBody OrderRequest orderRequest) {
-        orderservice.placeOrder(orderRequest);
-        return GeneralResponse.builder().message("Order placed successfully").build();
+    @TimeLimiter(name = "inventory")
+    public CompletableFuture<GeneralResponse> placeOrder(@RequestBody OrderRequest orderRequest) {
+      return  CompletableFuture.supplyAsync(()->orderservice.placeOrder(orderRequest));
+
     }
 
     @GetMapping
@@ -41,10 +44,10 @@ public class OrderController {
         return orderservice.getAllOrders();
 }
 
-public GeneralResponse fallback(OrderRequest orderRequest,RuntimeException runtimeException)
+public CompletableFuture<GeneralResponse> fallback(OrderRequest orderRequest,RuntimeException runtimeException)
 {
-   return GeneralResponse.builder().message(
-        "There was a problem with the inventory service: "+runtimeException.getMessage()).build();
+   return CompletableFuture.supplyAsync(()->GeneralResponse.builder().message(
+        "There was a problem with the inventory service: "+runtimeException.getMessage()).build());
     
 }
 

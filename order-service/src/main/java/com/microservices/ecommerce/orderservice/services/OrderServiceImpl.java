@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.microservices.ecommerce.orderservice.dtos.GeneralResponse;
 import com.microservices.ecommerce.orderservice.dtos.InventoryResponse;
 import com.microservices.ecommerce.orderservice.dtos.OrderLineItemResponseDto;
 import com.microservices.ecommerce.orderservice.dtos.OrderLineItemsDto;
@@ -32,7 +33,7 @@ public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientbuilder;
     @Override
-    public void placeOrder(OrderRequest orderRequest) {
+    public GeneralResponse placeOrder(OrderRequest orderRequest) {
         
         
        List<OrderLineItems> orderLineItems= orderRequest.getOrderLineItems()
@@ -56,6 +57,8 @@ public class OrderServiceImpl implements OrderService{
             if(allProductsResult)
             {
                 orderRepository.save(order);
+                        return GeneralResponse.builder().message("Order placed successfully").build();
+
             }
             else
             {
